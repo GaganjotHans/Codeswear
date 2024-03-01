@@ -1,9 +1,23 @@
-import React from "react";
+"use client";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MdShoppingCart } from "react-icons/md";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import { FaMinus, FaPlus } from "react-icons/fa";
+import { IoBagCheckOutline } from "react-icons/io5";
 
 const Navbar = () => {
+  const toggleCart = () => {
+    if (ref.current.classList.contains("translate-x-full")) {
+      ref.current.classList.remove("translate-x-full");
+      ref.current.classList.add("translate-x-0");
+    } else if (!ref.current.classList.contains("translate-x-full")) {
+      ref.current.classList.remove("translate-x-0");
+      ref.current.classList.add("translate-x-full");
+    }
+  };
+  const ref = useRef();
   return (
     <div>
       <header className="text-gray-600 body-font">
@@ -42,8 +56,43 @@ const Navbar = () => {
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
           </button>
-          <div className="cart absolute top-7 right-0 mx-5">
+          <div
+            onClick={toggleCart}
+            className="cart absolute top-7 right-0 mx-5"
+          >
             <MdShoppingCart className="text-2xl" />
+          </div>
+          <div
+            ref={ref}
+            className="sideCart h-full absolute top-0 right-0 bg-gray-100 p-10 transition transition-transform translate-x-full"
+          >
+            <h2 className="font-bold text-x1">Shopping Cart</h2>
+            <span onClick={toggleCart} className="absolute top-2 right-2">
+              <IoMdCloseCircleOutline className="text-2xl cursor-pointer" />
+            </span>
+            <ol className="list-decimal font-semibold">
+              <li>
+                <div className="item flex my-5">
+                  <div className="w-2/3 font-semibold">
+                    Tshirt - Wear the code
+                  </div>
+                  <div className="flex items-center justify-center w-1/3 text-md">
+                    <FaMinus className="mx-3 cursor-pointer" />
+                    <span className="text-xl">2</span>
+                    <FaPlus className="mx-3 cursor-pointer" />
+                  </div>
+                </div>
+              </li>
+            </ol>
+            <div className="flex">
+              <button className="flex mx-2 mt-16 text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">
+                <IoBagCheckOutline className="m-1" />
+                Checkout
+              </button>
+              <button className="flex mx-2 mt-16 text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">
+                Checkout
+              </button>
+            </div>
           </div>
         </div>
       </header>

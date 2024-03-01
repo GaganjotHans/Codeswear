@@ -1,5 +1,4 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+/* eslint-disable @next/next/no-img-element */
 
 export default function Home() {
   return (
